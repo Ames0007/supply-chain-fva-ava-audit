@@ -1,6 +1,6 @@
 # 📊 Auditing Your Supply Chain with FVA and AVA
 
-> **Complete GitHub edition.** This README preserves the notebook's explanatory content and includes every graph/image output embedded in the notebook.
+> Complete GitHub edition preserving the notebook narrative, formulas, and visual outputs in their original analytical sequence.
 
 📓 **Full executable notebook:** [`notebooks/supply_chain_fva_ava_audit.ipynb`](notebooks/supply_chain_fva_ava_audit.ipynb)
 
@@ -20,8 +20,6 @@ By using both FVA and AVA, organizations can objectively measure the contributio
 
 ***Important Note:*** I've not found a standard name for this latter methodology. It can be symply addressed as FVA or you can find it called also Inventory Optimization Analysis, Inventory Value Added (acronym too similar to IVA, the Italian value added taxes 😭), Inventory Value Added Analysis. My intention was to keep the two process separated.
 
----
-
 # What is Forecast Value Added (FVA)?
 
 Forecast Value Added (FVA) is a management technique used to assess the effectiveness and efficiency of a demand planning process. It measures what incremental value each step or functional team adds to the forecast's accuracy. FVA is an internal audit tool that identifies and helps eliminate non-value-added work.
@@ -39,13 +37,11 @@ Many organizations spend time and resources adjusting automated forecasts. If th
 The **Baseline Forecast** is the starting point against which all subsequent forecast versions are measured. The most common baseline is the output from a fully Automated Model (Statistical, ML).
 It represents the accuracy that can be achieved without any human intervention. Every subsequent forecast adjustment must be able to beat this baseline to be considered valuable. In Sales & Operations Planning (S&OP), for example, the forecast moves sequentially through different hands in order to achieve a consensus plan. We must measure the incremental value added by each function.
 
----
-
 ### The FVA Metric:
 
 FVA is expressed as a percentage representing the reduction in error achieved by the intervention step. In this demostration we'll use Mean Absolute Percent Error (MAPE). The formula for the value added by a specific Step n is:
 
-![fva1.jpg](attachment:84a13fbd-45e4-491a-93b8-c35399546def.jpg)
+![fva1.jpg](images/markdown_image_04_84a13fbd-45e4-491a-93b8-c35399546def.jpg)
 
 * **FVA >0%**: Value Added. The step improves accuracy.
 * **FVA <0%**: Value Destroyed. The step made the forecast worse.
@@ -55,8 +51,6 @@ FVA is expressed as a percentage representing the reduction in error achieved by
 
 Furthermore, it is useful to evaluate an error concept that is more directly linked to financial results (such as utilizing penalty costs for stockouts or overstocks). We will explore this crucial concept of a financialized error metric, including penalty systems, in the subsequent Allocation Value Added (AVA) section and in future articles.
 
----
-
 ### FVA Data and Scenario Description
 
 We analyze the sequential contributions of the Demand Planner and the Sales team for one product over 12 months, tracking the sequential MAPE and FVA.
@@ -64,17 +58,14 @@ We analyze the sequential contributions of the Demand Planner and the Sales team
 **Scenario**: The Automatic Model (F1) shows a high initial error, failing to accurately capture the magnitude of the Q3 spike. The model's features should be enriched in the future to better forecast spikes due to promotions.
 The Demand Planner (F2) is aware of the promotions and uses historical data to correct the baseline. The Sales team (F3) then provides an input based on aggressive targets, over-inflating the peak demand. We evaluate the value added by each function.
 
----
-
 In the code below, we will compute MAPE for the Statistical model, Demand Planner and Sales Team
-
----
 
 ### Calculating Functional FVA
 
 We apply the FVA formula sequentially to evaluate the contribution of each team.
 
----
+
+![Notebook output](images/graph_01_cell_11.png)
 
 ### Evaluating Functional FVA Contribution:
 
@@ -85,8 +76,6 @@ The FVA results provide clear evidence regarding the value of each intervention:
 *  **Sales Adjustment**: The Sales adjustment made the forecast 70% worse. They introduced a strong bias that moved the forecast away from actual demand.
 
 **Key Takeaway**: This analysis demonstrates that the Demand Planning function is the primary driver of value in the process, serving as the necessary check against systematic error. The Sales override failed to add value lowering the accuracy gained by the Planner, ultimately compromising the quality of the final forecast.
-
----
 
 ### Leveraging FVA: Adjusting Influence in the S&OP Process (Consensus Focus)
 
@@ -110,8 +99,6 @@ The FVA results provide the data needed to govern the collaborative S&OP process
 
 By implementing this structure, the process retains the benefits of collaborative input while using FVA to ensure that only value-adding steps influence the final decision.
 
----
-
 ### Alternative Approach: Ensemble Method
 
 As an alternative, organizations can use FVA results to implement a numerical weighting system (an ensemble forecast). This approach automates the final forecast by blending the output of all individual forecasts, giving greater weight to the most historically accurate contributor.
@@ -124,13 +111,9 @@ In this model, the final Consensus Forecast is a weighted average of all indepen
 
 The resulting ensemble forecast would mathematically assign half of the final influence to the Planner Adjusted Forecast, while significantly reducing the influence of the underperforming Sales Forecast. This method ensures that historical error directly controls future forecast.
 
----
-
 # What is Allocation Value Added (AVA)?
 
 Allocation Value Added (AVA) is a method that **extends the FVA principle to the execution phase** of the supply chain. AVA measures whether a human planner's adjustments to a system-generated allocation proposal actually improve the final distribution outcome in terms of real costs (e.g., minimizing stockouts and overstocks).
-
----
 
 ### Why AVA Matters to Supply Chain Professionals?
 
@@ -149,9 +132,7 @@ The Error for AVA is the **Total Allocation Penalty**, which is the sum of quant
 
 The AVA formula then becomes:
 
-![image.png](attachment:641be8b3-6dc0-496a-aec8-011dbd6dc15b.png)
-
----
+![image.png](images/markdown_image_16_641be8b3-6dc0-496a-aec8-011dbd6dc15b.png)
 
 ### Scenario:
 
@@ -165,11 +146,10 @@ The automated system proposes an allocation. The planner, possessing local knowl
 
 * Holding Cost per Excess Unit = €2
 
----
+
+![Notebook output](images/graph_02_cell_18.png)
 
 The code below computes the total run penalties and the global penalties for both System and Planner. Using this metrics we will be able to calculate the AVA for the single run but also the global AVA.
-
----
 
 ### Analysis of Individual and Total AVA:
 
@@ -187,7 +167,8 @@ The code below computes the total run penalties and the global penalties for bot
 
 The Planner's override authority should therefore be restricted to only those situations where they possess **concrete and documented knowledge**. Any planner adjustment that creates a stockout where the system predicted a surplus (as seen in Run 3) should trigger a high-risk review before execution. As this example demonstrates, frequent adjustments made purely by "gut feeling" can lead to much bigger errors in the long run. However, the overall planning process must continue integrating the Planner's well-documented knowledge about local events for continuous improvement.
 
----
+
+![Notebook output](images/graph_03_cell_22.png)
 
 # Conclusion: Continuous Improvement Across the Supply Chain
 
@@ -199,27 +180,10 @@ The Planner's override authority should therefore be restricted to only those si
 
 By integrating both FVA and AVA into regular performance reviews and continuous improvement initiatives, organizations can systematically identify waste, empower high-value contributors, and achieve financial benefits throughout their supply chain. **These metrics transform subjective judgments into objective insights, fostering a culture of data-driven decision-making**.
 
----
-
-# 📊 Complete Notebook Visualizations
-
-The following section preserves **every image output embedded in the original notebook**, in notebook order.
-
-## Notebook Visualization 1
-
-![Notebook Visualization 1](images/notebook_graph_01.png)
-
-## Notebook Visualization 2
-
-![Notebook Visualization 2](images/notebook_graph_02.png)
-
-## Notebook Visualization 3
-
-![Notebook Visualization 3](images/notebook_graph_03.png)
 
 ---
 
-# 📂 Repository Structure
+## 📂 Repository Structure
 
 ```text
 supply_chain_fva_ava_audit_project/
@@ -229,10 +193,12 @@ supply_chain_fva_ava_audit_project/
 ├── notebooks/
 │   └── supply_chain_fva_ava_audit.ipynb
 └── images/
-    └── notebook_graph_*.png
+    ├── fva_formula.png
+    ├── ava_formula.png
+    └── graph_*.png
 ```
 
-# 🚀 Run Locally
+## 🚀 Run Locally
 
 ```bash
 git clone https://github.com/Ames0007/supply-chain-fva-ava-audit.git
