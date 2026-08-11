@@ -1,6 +1,6 @@
 # 📊 Auditing Your Supply Chain with FVA and AVA
 
-> **GitHub edition of the complete notebook narrative.** This README preserves the explanatory methodology, formulas, examples, recommendations, and conclusions from the notebook rather than reducing them to a short project summary.
+> **Complete GitHub edition.** This README preserves the notebook's explanatory content and includes every graph/image output embedded in the notebook.
 
 📓 **Full executable notebook:** [`notebooks/supply_chain_fva_ava_audit.ipynb`](notebooks/supply_chain_fva_ava_audit.ipynb)
 
@@ -201,30 +201,25 @@ By integrating both FVA and AVA into regular performance reviews and continuous 
 
 ---
 
+# 📊 Complete Notebook Visualizations
 
-# Visual Audit Summary
+The following section preserves **every image output embedded in the original notebook**, in notebook order.
 
-The charts below summarize the principal FVA results calculated in the notebook.
+## Notebook Visualization 1
 
-## Forecast Accuracy Audit (MAPE)
+![Notebook Visualization 1](images/notebook_graph_01.png)
 
-![Forecast Accuracy Audit](images/fva_mape_comparison.png)
+## Notebook Visualization 2
 
-The automatic forecast has a MAPE of **5.01%**. The Demand Planner reduces the error to **1.80%**, while the subsequent Sales Team adjustment increases it to **3.06%**.
+![Notebook Visualization 2](images/notebook_graph_02.png)
 
-## Forecast Value Added by Intervention
+## Notebook Visualization 3
 
-![Forecast Value Added](images/fva_contribution.png)
-
-- **Demand Planner FVA:** +64.1%
-- **Sales Adjustment FVA:** -70.0%
-- **Overall FVA vs baseline:** +38.9%
-
-These visuals complement the detailed calculations and interpretation in the notebook sections above.
+![Notebook Visualization 3](images/notebook_graph_03.png)
 
 ---
 
-# Repository Structure
+# 📂 Repository Structure
 
 ```text
 supply_chain_fva_ava_audit_project/
@@ -234,11 +229,10 @@ supply_chain_fva_ava_audit_project/
 ├── notebooks/
 │   └── supply_chain_fva_ava_audit.ipynb
 └── images/
-    ├── fva_mape_comparison.png
-    └── fva_contribution.png
+    └── notebook_graph_*.png
 ```
 
-# Run Locally
+# 🚀 Run Locally
 
 ```bash
 git clone https://github.com/Ames0007/supply-chain-fva-ava-audit.git
